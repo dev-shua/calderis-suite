@@ -1,0 +1,7 @@
+node_modules
+coverage
+.vscode
+*.log
+*.zip
+
+/mnt/c/Users/Shua/AppData/Local/FoundryVTT/Data/modules/calderis-suite

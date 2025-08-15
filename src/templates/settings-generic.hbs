@@ -1,0 +1,39 @@
+
+<fieldset {{#unless enabled}}disabled{{/unless}}>
+  {{#each groups as |g|}}
+    <section class="cs-section">
+      {{#if g.title}}
+        <h3 class="cs-section__title"><i class="fas fa-sliders-h"></i><span>{{g.title}}</span></h3>
+      {{/if}}
+
+      {{#each g.items as |f|}}
+        <div class="form-group cs-field">
+          <label for="{{f.key}}">{{f.name}}</label>
+          <div class="form-fields">
+            {{#if (eq f.uiType "boolean")}}      <input id="{{f.key}}" type="checkbox" name="{{f.key}}" {{#if f.value}}checked{{/if}}/> {{/if}}
+            {{#if (eq f.uiType "number")}}       <input id="{{f.key}}" type="number" name="{{f.key}}" value="{{f.value}}" step="any"/> {{/if}}
+            {{#if (eq f.uiType "number-range")}}
+              <div class="cs-range">
+                <input id="{{f.key}}" type="range" name="{{f.key}}" value="{{f.value}}" min="{{f.range.min}}" max="{{f.range.max}}" step="{{f.range.step}}" oninput="this.nextElementSibling.value=this.value"/>
+                <output class="cs-range__value">{{f.value}}</output>
+              </div>
+            {{/if}}
+            {{#if (eq f.uiType "select")}}
+              <select id="{{f.key}}" name="{{f.key}}">
+                {{#each f.choices as |c|}}
+                  <option value="{{c.[0]}}" {{#if (eq ../f.value c.[0])}}selected{{/if}}>{{c.[1]}}</option>
+                {{/each}}
+              </select>
+            {{/if}}
+            {{#if (eq f.uiType "text")}}         <input id="{{f.key}}" type="text" name="{{f.key}}" value="{{f.value}}"/> {{/if}}
+          </div>
+          {{#if f.hint}}<p class="notes">{{f.hint}}</p>{{/if}}
+        </div>
+      {{/each}}
+    </section>
+  {{/each}}
+</fieldset>
+
+<footer class="sheet-footer flexrow">
+  <button type="submit" class="save"><i class="far fa-save"></i> {{localize "Save"}}</button>
+</footer>

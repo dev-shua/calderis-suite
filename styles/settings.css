@@ -1,0 +1,60 @@
+.calderis-settings .cs-field {
+  display: grid !important;
+  grid-template-columns: minmax(240px, 60%) 1fr;
+  align-items: start;
+  gap: 6px 12px;
+  margin: 6px 0 18px;
+  align-items: center;
+}
+
+.calderis-settings .cs-field > label {
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  align-self: center;
+}
+
+/* Zone du contrôle */
+.calderis-settings .cs-field .form-fields {
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+  min-height: 28px;
+}
+
+/* Slider + valeur à droite, alignés */
+.calderis-settings .cs-range {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+.calderis-settings .cs-range__value {
+  min-width: 3.5ch;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.9;
+}
+
+/* Descriptions (hint) plus discrètes et en italique */
+.calderis-settings .notes {
+  grid-column: 1 / -1;
+  margin: 2px 0 0;
+  font-style: italic;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.72);
+  align-self: start;
+}
+
+.calderis-settings input[type="number"],
+.calderis-settings input[type="text"],
+.calderis-settings select {
+  max-width: 100%;
+}
+
+@media (max-width: 720px) {
+  .calderis-settings .cs-field {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "id": "calderis-suite",
+  "title": "Calderis Suite",
+  "description": "Bundle of modules for Calderis' campaign",
+  "version": "__VERSION__",
+  "authors": [{ "name": "Shua", "discord": "shua_3d" }],
+  "compatibility": { "minimum": "13", "verified": "13.347" },
+  "esmodules": ["module.js"],
+  "styles": ["styles/module.css", "styles/settings.css"],
+  "languages": [{ "lang": "fr", "name": "Français", "path": "lang/fr.json" }],
+  "packs": [],
+  "license": "MIT",
+  "relationships": {
+    "systems": [{ "id": "dnd5e", "type": "system", "compatibility": { "minimum": "5.1" } }]
+  }
+}

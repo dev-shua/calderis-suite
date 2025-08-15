@@ -1,0 +1,67 @@
+{
+  "CS": {
+    "Module": {
+      "Name": "Calderis Suite"
+    },
+    "Feature": {
+      "Distance": {
+        "Label": "Mesures & Portées",
+        "Hint": "Options d'affichage et de calcul pour la distance."
+      }
+    },
+    "Section": {
+      "General": "Général",
+      "Display": "Affichage",
+      "Calculation": "Calcul"
+    },
+    "Common": {
+      "Configure": "Paramétrer",
+      "GM": "MJ uniquement",
+      "GMOwners": "MJ + Propriétaires du token",
+      "Everyone": "Tout le monde"
+    },
+    "Distance": {
+      "Enabled": {
+        "Name": "Activer l'affichage de distance",
+        "Hint": "Active ou désactive l'affichage de la distance au survol"
+      },
+      "VisibleTo": {
+        "Name": "Visibilité",
+        "Hint": "Définit qui a le droit d'afficher la bulle sur son propre écran. Rien n'est partagé aux autres joueurs."
+      },
+      "TextSize": {
+        "Name": "Taille du texte (px)",
+        "Hint": "Préférence locale pour la lisibilité (10 à 24px)"
+      },
+      "StepSource": {
+        "Name": "Granularité d'affichage",
+        "Hint": "Définit le pas utilisé pour arrondir la distance.",
+        "None": "Aucun arrondi",
+        "Cell": "Pas basé sur la case",
+        "Custom": "Pas personnalisé (unités de la scène)"
+      },
+      "StepFraction": {
+        "Name": "Fraction de case",
+        "Hint": "1 case, ½ case ou ¼ de case.",
+        "One": "1 case",
+        "Half": "½ case",
+        "Quarter": "¼ de case"
+      },
+      "CustomStep": {
+        "Name": "Pas personnalisé",
+        "Hint": "Valeur en unités de la scène (ex. m ou ft)."
+      },
+      "RoundingMode": {
+        "Name": "Mode d'arrondi",
+        "Hint": "Arrondit la distance au multiple du pas choisi.\n• Au multiple le plus proche : 17,3 → 16,5 (pas 1,5)\n• Toujours vers le bas (≤) : 17,3 → 16,5\n• Toujours vers le haut (≥) : 17,3 → 18,0",
+        "Nearest": "Au multiple le plus proche",
+        "Floor": "Toujours vers le bas (≤)",
+        "Ceil": "Toujours vers le haut (≥)"
+      },
+      "RequireLOS": {
+        "Name": "Exiger la ligne de vue",
+        "Hint": "N'affiche la bulle que si la cible est visible par l'utilisateur."
+      }
+    }
+  }
+}
