@@ -1,4 +1,6 @@
+import { currencySettingsDef } from "@/features/currency/settings.schema";
 import { distanceSettingsDef } from "@/features/distance/settings.schema";
+import log from "@/utils/logger";
 
 export type SettingsDef = Record<
   string,
@@ -18,7 +20,7 @@ export type SettingsDef = Record<
 export interface FeatureMeta {
   key: string;
   label: string;
-  hintKey: string;
+  hintKey?: string;
   icon: string;
   restricted?: boolean;
   def: SettingsDef;
@@ -33,8 +35,17 @@ export const FEATURES: FeatureMeta[] = [
     restricted: false,
     def: distanceSettingsDef,
   },
+  {
+    key: "currency",
+    label: "CS.Feature.Currency.Label",
+    hintKey: "CS.Feature.Currency.Hint",
+    icon: "fas fa-coins",
+    restricted: false,
+    def: currencySettingsDef,
+  },
 ] as const;
 
 export const SETTINGS_DEF = {
   ...distanceSettingsDef,
+  ...currencySettingsDef,
 } as const;

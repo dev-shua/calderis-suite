@@ -2,6 +2,7 @@
 import log from "@/utils/logger";
 import { Settings } from "@/core/settings";
 import { DistanceOverlay } from "./overlay";
+import type { TokenLike, TokenDocumentLike, GridLike } from "@/types/foundry-like";
 
 /* ---------- Helpers géométrie / grille ---------- */
 
@@ -25,7 +26,7 @@ function dnd5eSpaces(dx: number, dy: number): number {
   return straight + diagCost;
 }
 
-function minSpacesFromTokenToCell(grid: any, tokenA: Token, iB: number, jB: number): number {
+function minSpacesFromTokenToCell(grid: any, tokenA: TokenLike, iB: number, jB: number): number {
   const tl = grid.getOffset({ x: tokenA.document.x, y: tokenA.document.y });
   const w = tokenA.document.width ?? 1;
   const h = tokenA.document.height ?? 1;
@@ -59,16 +60,16 @@ function computeStep(): number {
   return gridDist * frac;
 }
 
-function canCurrentUserSeeFor(selected: Token): boolean {
+function canCurrentUserSeeFor(selected: TokenLike): boolean {
   const user = game.user!;
   const mode = Settings.get("distance.visibleTo") as "gm" | "gmOwners" | "everyone";
   if (user.isGM) return true;
   if (mode === "everyone") return true;
   if (mode === "gm") return false;
-  return selected.document.isOwner;
+  return selected.document.isOwner || false;
 }
 
-function canSeeTokenForUser(token: Token): boolean {
+function canSeeTokenForUser(token: TokenLike): boolean {
   const user = game.user!;
   if (user.isGM) return true;
   if (token.document.hidden) return false;
@@ -88,7 +89,7 @@ function clamp(n: number, a: number, b: number) {
 
 export class DistanceFeature {
   private overlay = new DistanceOverlay();
-  private hovered: Token | null = null;
+  private hovered: TokenLike | null = null;
   private altDown = false;
   private tickerFn: (() => void) | null = null;
 
@@ -151,14 +152,14 @@ export class DistanceFeature {
     if (!selected) this.overlay.hide();
   };
 
-  private onTokenUpdate = (doc: TokenDocument) => {
+  private onTokenUpdate = (doc: TokenDocumentLike) => {
     if (!this.hovered) return;
     const sel = canvas?.tokens?.controlled?.[0];
     if (!sel) return this.overlay.hide();
     if (doc.id === sel.id || doc.id === this.hovered.id) this.updateTooltip(this.hovered);
   };
 
-  private onHoverToken = (tok: Token, hovered: boolean) => {
+  private onHoverToken = (tok: TokenLike, hovered: boolean) => {
     const enabled = Settings.get("distance.enabled");
     if (!enabled) {
       this.stopTicker();
@@ -196,7 +197,7 @@ export class DistanceFeature {
     this.tickerFn = null;
   }
 
-  private updateTooltip(tokenB: Token) {
+  private updateTooltip(tokenB: TokenLike) {
     const selected = canvas?.tokens?.controlled?.[0];
     if (!selected) return this.overlay.hide();
     if (selected.id === tokenB.id) return this.overlay.hide();

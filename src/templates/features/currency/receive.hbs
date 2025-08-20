@@ -1,0 +1,16 @@
+<section class="cs-c-received">
+  <p class="cs-c-received-msg">{{message}}</p>
+
+  {{#if isMulti}}
+    <ul class="cs-c-received-list">
+      {{#each lines}}
+        <li>{{this}}</li>
+      {{/each}}
+    </ul>
+  {{/if}}
+
+  <footer class="sheet-footer flexrow" style="gap:8px;">
+    <span style="flex:1;"></span>
+    <button type="submit" class="default">{{labels.ok}}</button>
+  </footer>
+</section>

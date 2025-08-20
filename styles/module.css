@@ -1,1 +1,7 @@
-/* UI du module */
+.cs-inline-feature .form-fields {
+  display: flex;
+  align-items: center;
+}
+.cs-inline-feature .form-fields .cs-open-feature-btn {
+  margin-left: 0; /* cohérent avec l’UI FVTT */
+}

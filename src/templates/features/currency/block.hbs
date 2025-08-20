@@ -1,0 +1,30 @@
+<section class="cs-currency__block">
+  <div class="cs-currency__header">
+    <div class="cs-currency__title">{{labels.header}}</div>
+    <button type="button" class="cs-currency__manage">{{labels.manage}}</button>
+  </div>
+
+  <ul class="cs-currency__list">
+    {{#each coins}}
+      <li class="cs-currency__row" data-currency-id="{{id}}">
+        <div class="cs-currency__label" title="{{name}}">
+          {{#if icon}}<img class="cs-currency__icon" src="{{icon}}" alt="" />{{/if}}
+          <span class="cs-currency__abbr" {{#if color}}style="color: {{color}};"{{/if}}>{{abbr}}</span>
+        </div>
+
+        <div class="cs-currency__controls">
+          <button type="button" class="cs-btn" data-action="dec" aria-label="-">−</button>
+          <input type="number" min="0" step="1" value="{{qty}}" data-currency-id="{{id}}" class="cs-input-number"/>
+          <button type="button" class="cs-btn" data-action="inc" aria-label="+">+</button>
+        </div>
+      </li>
+    {{/each}}
+  </ul>
+
+  {{#if showTotal}}
+    <footer class="cs-currency__footer">
+      <span class="cs-currency__total-label">{{totalLabel}}</span>
+      <span class="cs-currency__total">{{total}}</span>
+    </footer>
+  {{/if}}
+</section>

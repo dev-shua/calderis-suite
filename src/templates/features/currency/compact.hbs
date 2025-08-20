@@ -1,0 +1,18 @@
+<section class="cs-currency__bar" data-cs-currency="1">
+  <div class="cs-currency__items">
+    {{#each coins}}
+      <div class="cs-currency__pill" title="{{name}}" data-currency-id="{{id}}">
+        {{#if icon}}<img class="cs-currency__pill-icon" src="{{icon}}" alt=""/>{{/if}}
+        {{#unless icon}}<span class="cs-currency__pill-abbr" {{#if color}}style="color:{{color}};"{{/if}}>{{abbr}}</span>{{/unless}}
+        <span class="cs-currency__pill-qty">{{qtyFmt}}</span>
+      </div>
+    {{/each}}
+  </div>
+
+  <div class="cs-currency__actions">
+    {{#if showTotal}}
+      <span class="cs-currency__total" title="{{totalLabel}}">{{totalFmt}}</span>
+    {{/if}}
+    <button type="button" class="cs-btn" data-action="manage">{{manageLabel}}</button>
+  </div>
+</section>

@@ -1,0 +1,24 @@
+<section class="cs-currency-manage">
+  <table>
+    <thead>
+      <tr><th>{{labels.name}}</th><th class="right">{{labels.qty}}</th></tr>
+    </thead>
+    <tbody>
+      {{#each rows}}
+        <tr>
+          <td class="cs-cm-name">
+            {{#if icon}}<img class="cs-cm-icon" src="{{icon}}" alt=""/>{{/if}}
+            {{#unless icon}}<span class="cs-cm-abbr" {{#if color}}style="color:{{color}};"{{/if}}>{{abbr}}</span>{{/unless}}
+            <span class="cs-cm-label">{{name}}</span>
+          </td>
+          <td class="right">
+            <input type="number" min="0" step="1" name="qty.{{id}}" value="{{qty}}" class="number"/>
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  <footer class="flexrow">
+    <button type="submit" class="default">{{labels.save}}</button>
+  </footer>
+</section>

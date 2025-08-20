@@ -1,0 +1,29 @@
+<section class="cs-c-adjust">
+  <header class="cs-c-adjust__header">
+    <h3>{{labels.header}}</h3>
+  </header>
+
+  <div class="cs-c-adjust__body">
+    {{#each rows}}
+      <div class="form-group" data-row="{{this.id}}">
+        <label class="cs-c-left">
+          {{#if this.icon}}
+            <img src="{{this.icon}}" alt="" class="cs-c-icon">
+          {{/if}}
+          <span class="cs-c-name">{{this.name}}</span>
+        </label>
+        <div class="form-fields cs-c-right">
+          <button type="button" data-action="dec" title="{{../labels.decTitle}}">−</button>
+          <input type="number" name="qty" min="0" step="1" class="number cs-c-input" value="{{this.qty}}">
+          <button type="button" data-action="inc" title="{{../labels.incTitle}}">＋</button>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+
+  <footer class="sheet-footer flexrow cs-c-footer">
+    <button type="button" data-action="give">{{labels.give}}</button>
+    <span style="flex:1;"></span>
+    <button type="submit" class="default">{{labels.save}}</button>
+  </footer>
+</section>

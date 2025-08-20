@@ -1,0 +1,46 @@
+<section class="cs-c-transfer">
+  <header class="cs-c-adjust__header">
+    <h3>{{labels.header}}</h3>
+  </header>
+
+  <div class="form-group">
+    <label>{{labels.recipient}}</label>
+    <div class="form-fields">
+      {{#if targets.length}}
+        <select name="toActorId">
+          <option value="">{{labels.select}}</option>
+          {{#each targets}}
+            <option value="{{this.id}}">{{this.name}}</option>
+          {{/each}}
+        </select>
+      {{else}}
+        <em>{{labels.none}}</em>
+      {{/if}}
+    </div>
+  </div>
+
+  <hr/>
+
+  <div class="cs-c-adjust__body">
+    {{#each rows}}
+      <div class="form-group cs-c-line" data-row="{{this.id}}">
+        <div class="cs-c-left">
+          {{#if this.icon}}
+            <img src="{{this.icon}}" alt="" class="cs-c-icon">
+          {{/if}}
+          <span class="cs-c-name">{{this.name}}</span>
+        </div>
+        <div class="form-fields cs-c-right">
+          <button type="button" data-action="dec" title="{{../labels.decTitle}}">−</button>
+          <input type="number" name="qty" min="0" step="1" class="number cs-c-input" value="0">
+          <button type="button" data-action="inc" title="{{../labels.incTitle}}">＋</button>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+
+  <footer class="sheet-footer flexrow cs-c-footer">
+    <span class="flex-spacer"></span>
+    <button type="submit" class="default">{{labels.send}}</button>
+  </footer>
+</section>

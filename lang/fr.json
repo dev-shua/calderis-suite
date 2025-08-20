@@ -1,67 +1,125 @@
 {
-  "CS": {
-    "Module": {
-      "Name": "Calderis Suite"
-    },
-    "Feature": {
-      "Distance": {
-        "Label": "Mesures & Portées",
-        "Hint": "Options d'affichage et de calcul pour la distance."
-      }
-    },
-    "Section": {
-      "General": "Général",
-      "Display": "Affichage",
-      "Calculation": "Calcul"
-    },
-    "Common": {
-      "Configure": "Paramétrer",
-      "GM": "MJ uniquement",
-      "GMOwners": "MJ + Propriétaires du token",
-      "Everyone": "Tout le monde"
-    },
-    "Distance": {
-      "Enabled": {
-        "Name": "Activer l'affichage de distance",
-        "Hint": "Active ou désactive l'affichage de la distance au survol"
-      },
-      "VisibleTo": {
-        "Name": "Visibilité",
-        "Hint": "Définit qui a le droit d'afficher la bulle sur son propre écran. Rien n'est partagé aux autres joueurs."
-      },
-      "TextSize": {
-        "Name": "Taille du texte (px)",
-        "Hint": "Préférence locale pour la lisibilité (10 à 24px)"
-      },
-      "StepSource": {
-        "Name": "Granularité d'affichage",
-        "Hint": "Définit le pas utilisé pour arrondir la distance.",
-        "None": "Aucun arrondi",
-        "Cell": "Pas basé sur la case",
-        "Custom": "Pas personnalisé (unités de la scène)"
-      },
-      "StepFraction": {
-        "Name": "Fraction de case",
-        "Hint": "1 case, ½ case ou ¼ de case.",
-        "One": "1 case",
-        "Half": "½ case",
-        "Quarter": "¼ de case"
-      },
-      "CustomStep": {
-        "Name": "Pas personnalisé",
-        "Hint": "Valeur en unités de la scène (ex. m ou ft)."
-      },
-      "RoundingMode": {
-        "Name": "Mode d'arrondi",
-        "Hint": "Arrondit la distance au multiple du pas choisi.\n• Au multiple le plus proche : 17,3 → 16,5 (pas 1,5)\n• Toujours vers le bas (≤) : 17,3 → 16,5\n• Toujours vers le haut (≥) : 17,3 → 18,0",
-        "Nearest": "Au multiple le plus proche",
-        "Floor": "Toujours vers le bas (≤)",
-        "Ceil": "Toujours vers le haut (≥)"
-      },
-      "RequireLOS": {
-        "Name": "Exiger la ligne de vue",
-        "Hint": "N'affiche la bulle que si la cible est visible par l'utilisateur."
-      }
-    }
-  }
+  "CS.Module.Name": "Calderis Suite",
+
+  "CS.Feature.Distance.Label": "Mesures & Portées",
+  "CS.Feature.Distance.Hint": "Options d'affichage et de calcul pour la distance.",
+
+  "CS.Feature.Currency.Label": "Monnaies personnalisées",
+  "CS.Feature.Currency.Hint": "Remplace l'affichage des monnaies par un système custom (sans écraser la monnaie native).",
+
+  "CS.Section.General": "Général",
+  "CS.Section.Display": "Affichage",
+  "CS.Section.Calculation": "Calcul",
+  "CS.Section.Integration": "Intégration",
+
+  "CS.Common.Configure": "Paramétrer",
+  "CS.Common.GM": "MJ uniquement",
+  "CS.Common.GMOwners": "MJ + Propriétaires du token",
+  "CS.Common.Everyone": "Tout le monde",
+  "CS.Common.Add": "Ajouter",
+  "CS.Common.Name": "Nom",
+  "CS.Common.Order": "Ordre",
+  "CS.Common.Icon": "Icône",
+  "CS.Common.Color": "Couleur",
+  "CS.Common.Visible": "Visible",
+  "CS.Common.Actions": "Actions",
+  "CS.Common.Up": "Monter",
+  "CS.Common.Down": "Descendre",
+  "CS.Common.Remove": "Supprimer",
+  "CS.Common.Browse": "Parcourir",
+  "CS.Common.Quantity": "Quantité",
+  "CS.Common.Save": "Enregistrer",
+
+  "CS.Distance.Enabled.Label": "Activer l'affichage de distance",
+  "CS.Distance.Enabled.Hint": "Active ou désactive l'affichage de la distance au survol.",
+  "CS.Distance.VisibleTo.Label": "Visibilité",
+  "CS.Distance.VisibleTo.Hint": "Définit qui a le droit d'afficher la bulle sur son propre écran. Rien n'est partagé aux autres joueurs.",
+  "CS.Distance.TextSize.Label": "Taille du texte (px)",
+  "CS.Distance.TextSize.Hint": "Préférence locale pour la lisibilité (10 à 24px).",
+  "CS.Distance.StepSource.Label": "Granularité d'affichage",
+  "CS.Distance.StepSource.Hint": "Définit le pas utilisé pour arrondir la distance.",
+  "CS.Distance.StepSource.None": "Aucun arrondi",
+  "CS.Distance.StepSource.Cell": "Pas basé sur la case",
+  "CS.Distance.StepSource.Custom": "Pas personnalisé (unités de la scène)",
+  "CS.Distance.StepFraction.Label": "Fraction de case",
+  "CS.Distance.StepFraction.Hint": "1 case, ½ case ou ¼ de case.",
+  "CS.Distance.StepFraction.One": "1 case",
+  "CS.Distance.StepFraction.Half": "½ case",
+  "CS.Distance.StepFraction.Quarter": "¼ de case",
+  "CS.Distance.CustomStep.Label": "Pas personnalisé",
+  "CS.Distance.CustomStep.Hint": "Valeur en unités de la scène (ex. m ou ft).",
+  "CS.Distance.RoundingMode.Label": "Mode d'arrondi",
+  "CS.Distance.RoundingMode.Hint": "Arrondit la distance au multiple du pas choisi.\n• Au multiple le plus proche : 17,3 → 16,5 (pas 1,5)\n• Toujours vers le bas (≤) : 17,3 → 16,5\n• Toujours vers le haut (≥) : 17,3 → 18,0",
+  "CS.Distance.RoundingMode.Nearest": "Au multiple le plus proche",
+  "CS.Distance.RoundingMode.Floor": "Toujours vers le bas (≤)",
+  "CS.Distance.RoundingMode.Ceil": "Toujours vers le haut (≥)",
+  "CS.Distance.RequireLOS.Label": "Exiger la ligne de vue",
+  "CS.Distance.RequireLOS.Hint": "N'affiche la bulle que si la cible est visible par l'utilisateur.",
+
+  "CS.Currency.Settings.Enabled.Label": "Monnaie personnalisée",
+  "CS.Currency.Settings.Enabled.Hint": "Active l'affichage et la gestion des monnaies Calderis sur les fiches.",
+  "CS.Currency.Settings.Definitions.Label": "Définitions des devises",
+  "CS.Currency.Settings.Definitions.Hint": "Liste ordonnée des devises (id, name, abbr, order, referenceValue, icône…).",
+  "CS.Currency.Settings.FormTitle": "Définitions des devises",
+  "CS.Currency.Settings.Table.Header": "Devises",
+  "CS.Currency.Settings.Abbr": "Symbole",
+  "CS.Currency.Settings.Reference": "Valeur de référence",
+  "CS.Currency.Settings.PlayerEdit.Label": "Les joueurs peuvent modifier leur propre monnaie",
+  "CS.Currency.Settings.PlayerEdit.Hint": "Si désactivé, seuls les MJ peuvent éditer les montants.",
+  "CS.Currency.Settings.Sync.Label": "Synchronisation vers le système",
+  "CS.Currency.Settings.Sync.Hint": "Compat éventuelle avec des modules qui lisent le champ GP. N'écrit rien par défaut.",
+  "CS.Currency.Settings.Sync.Options.none": "Aucune",
+  "CS.Currency.Settings.Sync.Options.referenceToGP": "Écrire un total de référence dans GP (lecture seule)",
+
+  "CS.Currency.Snapshot.Take.Label": "Prendre un snapshot (tous les acteurs)",
+  "CS.Currency.Snapshot.Take.Hint": "Sauvegarde l'état actuel de la monnaie native (system.currency) pour chaque acteur.",
+  "CS.Currency.Snapshot.Take.Confirm": "Prendre un snapshot de la monnaie native pour TOUS les acteurs ?",
+  "CS.Currency.Snapshot.Take.Success": "Snapshot effectué — {count} acteur(s).",
+  "CS.Currency.Snapshot.Take.NoneFound": "Aucun acteur trouvé.",
+  "CS.Currency.Snapshot.Restore.Label": "Restaurer depuis snapshot (tous les acteurs)",
+  "CS.Currency.Snapshot.Restore.Hint": "Restaure system.currency depuis le snapshot (si présent).",
+  "CS.Currency.Snapshot.Restore.Confirm": "ÉCRASER system.currency depuis le snapshot pour TOUS les acteurs disposant d'un snapshot ?",
+  "CS.Currency.Snapshot.Restore.Success": "Restauration effectuée — {count} acteur(s).",
+  "CS.Currency.Snapshot.Restore.NoSnapshot": "Aucun snapshot trouvé à restaurer.",
+
+  "CS.Currency.UI.ManageTitle": "Gérer la monnaie",
+  "CS.Currency.Feature.OpenDefinitions": "Éditer les définitions de devises…",
+  "CS.Common.Cancel": "Annuler",
+  "CS.Common.OK": "OK",
+  "CS.Common.Amount": "Montant",
+  "CS.Common.Increment": "Augmenter",
+  "CS.Common.Decrement": "Diminuer",
+
+  "CS.Currency.Feature.Title": "Paramètres de la monnaie",
+
+  "CS.Currency.UI.Header": "Monnaie",
+  "CS.Currency.UI.Manage": "Gérer",
+  "CS.Currency.UI.TotalReference": "Valeur approx.",
+  "CS.Currency.UI.Give": "Donner…",
+  "CS.Currency.UI.TransferTitle": "Donner de la monnaie",
+  "CS.Currency.UI.ToActor": "Au personnage",
+  "CS.Currency.UI.GiveNow": "Donner",
+  "CS.Currency.UI.NoOnlineTarget": "Aucun destinataire en ligne",
+  "CS.Currency.UI.Have": "Vous avez",
+  "CS.Currency.UI.GiveCol": "Donner",
+  "CS.Currency.UI.ReceivedTitle": "Monnaie reçue",
+  "CS.Currency.UI.ReceivedBody": "{from} vous a donné {amount} × {currency}",
+  "CS.Currency.UI.ReceivedSingle": "{from} vous a donné {amount} × {currency}",
+  "CS.Currency.UI.ReceivedMulti": "{from} vous a donné :",
+  "CS.Currency.UI.ItemFmt": "{amount} × {currency}",
+
+  "CS.Currency.Msg.SelectTarget": "Sélectionnez un destinataire",
+  "CS.Currency.Msg.InvalidAmount": "Montant invalide",
+  "CS.Currency.Msg.NothingToTransfer": "Rien à transférer",
+  "CS.Currency.Msg.InsufficientFunds": "Fonds insuffisants",
+  "CS.Currency.Msg.TransferOK": "Transfert effectué",
+  "CS.Currency.Msg.TransferFailed": "Transfert échoué",
+
+  "CS.Currency.Transfer.Title": "Donner de la monnaie",
+  "CS.Currency.Transfer.Recipient": "Destinataire",
+  "CS.Currency.Transfer.Select": "Sélectionner…",
+  "CS.Currency.Transfer.SelectWarn": "Choisis un destinataire.",
+  "CS.Currency.Transfer.Empty": "Entre au moins une quantité.",
+  "CS.Currency.Transfer.Send": "Envoyer",
+  "CS.Currency.Transfer.NoTargets": "Aucun destinataire connecté"
 }

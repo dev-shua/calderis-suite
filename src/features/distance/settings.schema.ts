@@ -1,7 +1,7 @@
 // Uniquement le schéma de la feature Distance
 export const distanceSettingsDef = {
   "distance.enabled": {
-    name: "CS.Distance.Enabled.Name",
+    name: "CS.Distance.Enabled.Label",
     hint: "CS.Distance.Enabled.Hint",
     scope: "world" as const,
     config: true,
@@ -9,7 +9,7 @@ export const distanceSettingsDef = {
     default: true,
   },
   "distance.visibleTo": {
-    name: "CS.Distance.VisibleTo.Name",
+    name: "CS.Distance.VisibleTo.Label",
     hint: "Contrôle qui voit la distance au survol.",
     scope: "world" as const,
     config: false,
@@ -23,9 +23,9 @@ export const distanceSettingsDef = {
     section: "CS.Section.Display",
   },
   "distance.stepSource": {
-    name: "CS.Distance.StepSource.Name",
+    name: "CS.Distance.StepSource.Label",
     hint: "CS.Distance.StepSource.Hint",
-    scope: "world",
+    scope: "world" as const,
     config: false,
     type: String,
     default: "cell",
@@ -37,9 +37,9 @@ export const distanceSettingsDef = {
     section: "CS.Section.Display",
   },
   "distance.stepFraction": {
-    name: "CS.Distance.StepFraction.Name",
+    name: "CS.Distance.StepFraction.Label",
     hint: "CS.Distance.StepFraction.Hint",
-    scope: "world",
+    scope: "world" as const,
     config: false,
     type: Number,
     default: 1,
@@ -51,9 +51,9 @@ export const distanceSettingsDef = {
     section: "CS.Section.Display",
   },
   "distance.customStep": {
-    name: "CS.Distance.CustomStep.Name",
+    name: "CS.Distance.CustomStep.Label",
     hint: "CS.Distance.CustomStep.Hint",
-    scope: "world",
+    scope: "world" as const,
     config: false,
     type: Number,
     default: 1,
@@ -61,9 +61,9 @@ export const distanceSettingsDef = {
     section: "CS.Section.Display",
   },
   "distance.roundingMode": {
-    name: "CS.Distance.RoundingMode.Name",
+    name: "CS.Distance.RoundingMode.Label",
     hint: "CS.Distance.RoundingMode.Hint",
-    scope: "world",
+    scope: "world" as const,
     config: false,
     type: String,
     default: "nearest",
@@ -75,7 +75,7 @@ export const distanceSettingsDef = {
     section: "CS.Section.Display",
   },
   "distance.textSize": {
-    name: "CS.Distance.TextSize.Name",
+    name: "CS.Distance.TextSize.Label",
     hint: "CS.Distance.TextSize.Hint",
     scope: "client" as const,
     config: false,
@@ -85,9 +85,9 @@ export const distanceSettingsDef = {
     section: "CS.Section.Display",
   },
   "distance.requireLOS": {
-    name: "CS.Distance.RequireLOS.Name",
+    name: "CS.Distance.RequireLOS.Label",
     hint: "CS.Distance.RequireLOS.Hint",
-    scope: "world",
+    scope: "world" as const,
     config: false,
     type: Boolean,
     default: false,

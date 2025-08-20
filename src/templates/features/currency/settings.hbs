@@ -1,0 +1,50 @@
+<section class="cs-currency-settings__wrap">
+  <header>
+    <h2>{{labels.header}}</h2>
+  </header>
+
+  <table class="cs-currency-settings__table">
+    <thead>
+      <tr>
+        <th>{{labels.order}}</th>
+        <th>{{labels.icon}}</th>
+        <th>{{labels.abbr}}</th>
+        <th>{{labels.name}}</th>
+        <th>ID</th>
+        <th>{{labels.color}}</th>
+        <th>{{labels.ref}}</th>
+        <th>{{labels.visible}}</th>
+        <th>{{labels.actions}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each rows}}
+        <tr class="cs-c-row">
+          <td><input type="number" data-field="order" value="{{order}}" step="1" min="0" class="number"/></td>
+          <td class="cs-c-icon">
+            <div class="cs-c-icon-input">
+              <input type="text" data-field="icon" value="{{icon}}" placeholder="{{../labels.icon}}"/>
+              <button type="button" data-action="pick" title="{{../labels.browse}}">…</button>
+            </div>
+          </td>
+          <td><input type="text" data-field="abbr" value="{{abbr}}" placeholder="{{../labels.abbr}}" maxlength="4"/></td>
+          <td><input type="text" data-field="name" value="{{name}}" placeholder="{{../labels.name}}"/></td>
+          <td><input type="text" data-field="id" value="{{id}}" placeholder="id"/></td>
+          <td><input type="text" data-field="color" value="{{color}}" placeholder="#RRGGBB"/></td>
+          <td><input type="number" data-field="referenceValue" value="{{referenceValue}}" step="1" min="0" class="number"/></td>
+          <td class="center"><input type="checkbox" data-field="visible" {{#if visible}}checked{{/if}}/></td>
+          <td class="actions">
+            <button type="button" data-action="up" title="{{../labels.up}}">↑</button>
+            <button type="button" data-action="down" title="{{../labels.down}}">↓</button>
+            <button type="button" data-action="remove" title="{{../labels.remove}}">✕</button>
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  <footer class="cs-currency-settings__footer">
+    <button type="button" data-action="add">{{labels.add}}</button>
+    <button type="submit" class="default">{{localize "Save"}}</button>
+  </footer>
+</section>

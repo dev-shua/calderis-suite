@@ -1,0 +1,339 @@
+.cs-currency__block {
+  padding: 8px;
+  border: 1px solid var(--color-border, rgba(0, 0, 0, 0.2));
+  border-radius: 8px;
+  margin-top: 8px;
+}
+.cs-currency__header h3 {
+  margin: 0 0 4px 0;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+.cs-currency__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 6px;
+}
+.cs-currency__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.cs-currency__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 120px;
+}
+.cs-currency__icon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+.cs-currency__controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.cs-input-number {
+  width: 5.5rem;
+  text-align: right;
+}
+.cs-btn {
+  min-width: 1.75rem;
+  height: 1.75rem;
+  line-height: 1.75rem;
+  padding: 0;
+}
+.cs-currency__footer {
+  margin-top: 8px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  font-weight: 600;
+}
+
+/* --- Compact bar --- */
+.cs-currency__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 8px;
+  border: 1px solid var(--color-border, rgba(0, 0, 0, 0.2));
+  border-radius: 8px;
+  margin-top: 8px;
+}
+.cs-currency__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.cs-currency__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.05);
+}
+.cs-currency__pill-icon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+.cs-currency__pill-abbr {
+  font-weight: 600;
+}
+.cs-currency__pill-qty {
+  min-width: 2ch;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.cs-currency__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+.cs-currency__total {
+  font-weight: 700;
+}
+
+/*------*/
+
+/* ===== Actor Sheet: barre monnaie (alignements) ===== */
+.cs-currency__header {
+  display: flex;
+  align-items: baseline; /* titre + bouton alignés */
+  justify-content: space-between;
+}
+
+.cs-currency__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center; /* toutes les pills alignées verticalement */
+}
+
+.cs-currency__pill {
+  display: inline-flex;
+  align-items: baseline; /* symbole + nombre sur la même ligne de base */
+  gap: 6px;
+}
+
+.cs-currency__pill-abbr {
+  min-width: 2ch; /* colonne symbole stable */
+  text-align: left;
+}
+
+.cs-currency__pill-qty {
+  font-variant-numeric: tabular-nums; /* chiffres alignés */
+  min-width: 3ch; /* largeur mini → colonnes droites quand ça change */
+  text-align: right;
+}
+
+/* ===== Formulaire v2 “Paramètres des monnaies” (2 colonnes propres) ===== */
+.cs-currency-feature .form-group {
+  display: grid;
+  grid-template-columns: 220px 1fr; /* label / champ */
+  align-items: center;
+  column-gap: 12px;
+}
+
+.cs-currency-feature .form-group > label {
+  margin: 0;
+}
+.cs-currency-feature .form-group > .form-fields {
+  margin: 0;
+}
+
+.cs-currency-feature .notes {
+  grid-column: 2; /* les notes sous le champ, alignées à droite */
+  margin: 4px 0 0 0;
+}
+
+/* ===== Formulaire v2 “Définitions des devises” (table) ===== */
+.cs-currency-settings table {
+  width: 100%;
+  table-layout: fixed; /* colonnes stables */
+}
+
+.cs-currency-settings thead th,
+.cs-currency-settings tbody td {
+  vertical-align: middle; /* tout centré verticalement */
+}
+
+/* Aligner les colonnes num. (ajuste les index si ton ordre diffère) */
+.cs-currency-settings tbody td:nth-child(1) {
+  text-align: right;
+} /* order */
+.cs-currency-settings tbody td:nth-child(7) {
+  text-align: right;
+} /* referenceValue */
+
+/* Champs “number” à droite, symbole centré */
+.cs-currency-settings input.number,
+.cs-currency-settings input[type="number"] {
+  text-align: right;
+}
+.cs-currency-settings input[data-field="abbr"] {
+  text-align: center;
+}
+
+/* Cases à cocher centrées, actions alignées à droite */
+.cs-currency-settings td.center {
+  text-align: center;
+}
+.cs-currency-settings td.actions {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.cs-currency-settings .actions > button {
+  /* garde les boutons serrés et alignés */
+  margin-inline: 0 4px;
+}
+
+/* ===== Dialog v2: CurrencyAdjust (alignements propres) ===== */
+.cs-currency-adjust .form-group {
+  display: grid;
+  grid-template-columns: 220px 1fr; /* label / champ */
+  align-items: center;
+  column-gap: 12px;
+}
+
+.cs-currency-adjust .form-group > label {
+  margin: 0;
+}
+.cs-currency-adjust .form-group > .form-fields {
+  margin: 0;
+}
+
+.cs-currency-adjust .cs-c-adjust__row label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cs-currency-adjust .cs-c-adjust__icon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.cs-currency-adjust .cs-c-abbr {
+  font-weight: 700;
+  min-width: 2ch;
+}
+
+.cs-currency-adjust input[type="number"],
+.cs-currency-adjust input.number {
+  text-align: right;
+  width: 140px; /* stable sans “saut” */
+  max-width: 100%;
+}
+
+/* bouton de footer cohérent */
+.window-app .sheet-footer .default {
+  min-width: 120px;
+}
+
+.cs-currency-adjust .cs-c-adjust__controls {
+  display: inline-grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 6px;
+  align-items: center;
+}
+.cs-currency-transfer .cs-c-transfer__row input[type="number"] {
+  width: 120px;
+  text-align: right;
+}
+
+.cs-c-line {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+
+.cs-c-left {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 28px;
+}
+
+.cs-c-icon {
+  width: 1.2em;
+  height: 1.2em;
+  object-fit: contain;
+}
+
+.cs-c-right {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cs-c-input {
+  width: 8em;
+  text-align: right;
+}
+
+.cs-c-footer .flex-spacer {
+  flex: 1;
+}
+
+/* Ligne : icône + nom à gauche, - [nb] + à droite (en s’appuyant sur le layout Foundry .form-group) */
+.cs-c-left {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 28px;
+}
+
+.cs-c-icon {
+  width: 1.2em;
+  height: 1.2em;
+  object-fit: contain;
+}
+
+/* Côté champs : une seule ligne - [nb] + */
+.cs-c-right {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cs-c-input {
+  width: 7.5em;
+  text-align: right;
+}
+
+/* Body & footer “propres” */
+.cs-c-adjust__body {
+  /* évite les sensations de “marge droite” en gardant le flux Foundry */
+  padding-right: 0;
+}
+
+.cs-c-footer {
+  margin-top: 10px;
+  padding-top: 6px;
+  border-top: 1px solid var(--color-border-light-2);
+}
+/* Empêche .form-fields de “pousser” et créer une marge visuelle à droite */
+.cs-c-adjust .form-group .form-fields {
+  flex: 0 0 auto;
+  justify-content: flex-end;
+}
+
+/* Footer aéré */
+.cs-c-footer {
+  margin-top: 10px;
+  padding-top: 6px;
+  border-top: 1px solid var(--color-border-light-2);
+}

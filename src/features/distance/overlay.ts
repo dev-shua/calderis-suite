@@ -1,5 +1,26 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { TokenLike } from "@/types/foundry-like";
 import log from "@/utils/logger";
+
+function tokenMetrics(t: TokenLike) {
+  // largeur/hauteur : priorité au runtime (w/h), sinon width/height, sinon bounds
+  const b = t.getBounds?.() ?? { width: 0, height: 0 };
+  const w = t.w ?? t.width ?? b.width ?? 0;
+  const h = t.h ?? t.height ?? b.height ?? 0;
+
+  // centre : priorité au champ center (toujours fiable), sinon déduit de x/y + w/h
+  const cx = t.center?.x ?? (t.x ?? 0) + w / 2;
+  const cy = t.center?.y ?? (t.y ?? 0) + h / 2;
+
+  // coin haut-gauche : si x/y manquants, on les déduit depuis le centre
+  const x = t.x ?? cx - w / 2;
+  const y = t.y ?? cy - h / 2;
+
+  const by = y + h; // bottom y
+  const rx = x + w; // right x (si besoin ailleurs)
+
+  return { x, y, w, h, cx, cy, by, rx };
+}
 
 export class DistanceOverlay {
   private el: HTMLDivElement | null = null;
@@ -67,10 +88,9 @@ export class DistanceOverlay {
   }
 
   /** Helper: bas-centre du token (x = centre, y = bas du token) */
-  showAtTokenBottomCenter(text: string, token: Token, offsetPx = 6) {
-    const cx = token.center.x;
-    const by = token.y + token.h; // bas du token en coords monde
-    this.showAtWorld(text, cx, by, offsetPx);
+  showAtTokenBottomCenter(text: string, token: TokenLike, offsetPx = 6) {
+    const m = tokenMetrics(token);
+    this.showAtWorld(text, m.cx, m.by, offsetPx);
   }
 
   setFontSize(px: number) {
