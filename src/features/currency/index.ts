@@ -44,11 +44,11 @@ export function readyCurrencyFeature(): void {
     wireActorSheets(); // injection UI fiche
     wireLiveRefresh(); // re-render fiches ouvertes
     WIRED = true;
-    log.info("Currency: hooks wired (ready).");
   }
 
   // pré-compile templates
-  const gt = (globalThis as any).getTemplate ?? (globalThis as any)?.foundry?.utils?.getTemplate;
+  const hbs = (globalThis as any)?.foundry?.applications?.handlebars;
+  const getT = hbs?.getTemplate ?? (globalThis as any)?.foundry?.utils?.getTemplate;
   const paths = [
     `modules/${MODULE_ID}/templates/features/currency/block.hbs`,
     `modules/${MODULE_ID}/templates/features/currency/feature.hbs`,
@@ -57,7 +57,7 @@ export function readyCurrencyFeature(): void {
     `modules/${MODULE_ID}/templates/features/currency/transfer.hbs`,
     `modules/${MODULE_ID}/templates/features/currency/receive.hbs`,
   ];
-  if (typeof gt === "function") {
-    for (const p of paths) void gt(p);
+  if (typeof getT === "function") {
+    void Promise.all(paths.map((p) => getT(p)));
   }
 }

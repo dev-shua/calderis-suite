@@ -110,7 +110,16 @@ export class CurrencyAdjustForm extends HbApp {
   }
 
   static onGive(this: any, _ev: MouseEvent, _target: HTMLElement) {
-    new (CurrencyTransferForm as any)({ actor: this.#actor }).render(true);
+    const actor = this.#actor; // instance bound by AppV2 actions
+    try {
+      this.close({ force: true });
+    } catch {
+      /* no-op */
+    }
+
+    setTimeout(() => {
+      new (CurrencyTransferForm as any)({ actor }).render(true);
+    }, 0);
   }
 
   activateListeners(html: any): void {
@@ -150,7 +159,6 @@ export class CurrencyAdjustForm extends HbApp {
       }
     };
 
-    // 2) updateActor (vient du GM / d’un autre client lors d’un don)
     // 2) updateActor (vient du GM / d’un autre client lors d’un don)
     const onActorUpdate = (doc: any, change: any, opts: any, userId: any) => {
       if (!doc || String(doc.id) !== String(this.#actor?.id)) return;

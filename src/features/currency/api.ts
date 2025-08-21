@@ -99,5 +99,4 @@ export function exposeApi(): void {
     add,
     totalReference,
   };
-  log.info("API CalderisCurrency exposée");
 }

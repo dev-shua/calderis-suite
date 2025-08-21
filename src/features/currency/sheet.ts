@@ -20,19 +20,19 @@ async function renderHbs(path: string, data: unknown): Promise<string> {
   const foundryNS = (globalThis as any)?.foundry;
 
   // v13+: API officielle
-  const rt = foundryNS?.applications?.handlebars?.renderTemplate;
-  if (typeof rt === "function") {
-    return await rt(path, data);
+  const hbs = foundryNS?.applications?.handlebars;
+  if (typeof hbs?.renderTemplate === "function") {
+    return await hbs.renderTemplate(path, data);
   }
 
-  // Fallback: compilation directe puis rendu
-  const gt = foundryNS?.utils?.getTemplate;
-  if (typeof gt === "function") {
-    const tpl = await gt(path);
+  // Fallback: compile + exécute
+  const getT = hbs?.getTemplate ?? foundryNS?.utils?.getTemplate;
+  if (typeof getT === "function") {
+    const tpl = await getT(path);
     return typeof tpl === "function" ? tpl(data) : String(tpl ?? "");
   }
 
-  // (vieux runtime) dernier filet
+  // Très vieux runtime (global)
   const rtLegacy = (globalThis as any)?.renderTemplate;
   if (typeof rtLegacy === "function") return await rtLegacy(path, data);
 
@@ -176,16 +176,12 @@ async function renderCurrencyBlock(actor: ActorLike, host: HTMLElement): Promise
   if (native?.parentElement) {
     native.style.display = "none";
     native.parentElement.insertBefore(wrapper, native.nextElementSibling);
-    log.info("Currency: injected after native block.");
   } else {
     pickInventoryHost(host).prepend(wrapper);
-    log.info("Currency: native not found; injected at inventory host.");
   }
 
   // Câble le bouton “Gérer” → dialog v2
   wireManageButton(wrapper, actor);
-
-  log.info("Currency: injected for actor:", (actor as any)?.name);
 }
 
 export function wireActorSheets(): void {
@@ -196,8 +192,6 @@ export function wireActorSheets(): void {
       const ctor = app?.constructor?.name ?? "<unknown>";
       const actor: ActorLike | undefined =
         app?.object?.documentName === "Actor" ? app.object : (data?.actor ?? app?.actor);
-
-      log.info(`[TRACE] ${hook} fired → ctor=${ctor}, actor=${(actor as any)?.name ?? "<none>"}`);
 
       try {
         // feature ON + système dnd5e
@@ -232,6 +226,4 @@ export function wireActorSheets(): void {
       log.info("Currency: manual injectAllOpen done.");
     },
   };
-
-  log.info("Currency: hooks wired on renderBaseActorSheet + renderActorSheet.");
 }

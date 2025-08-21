@@ -36,28 +36,14 @@ Hooks.once("ready", () => {
 
   const NS = `module.calderis-suite`; // vérifie que c’est bien ton MODULE_ID
   const s = (game as any).socket;
-  console.info("[Calderis][DEBUG] socket present?", !!s, "user:", (game as any).user?.id);
 
   if (!s) return;
   // on enlève d'éventuels listeners fantômes puis on (re)branche
   try {
     s.off(NS);
   } catch {}
-  s.on(NS, (msg: any) => {
-    console.info("[Calderis][DEBUG][BOOT-LISTENER] recv", msg, "me:", (game as any).user?.id);
-  });
-
-  // expose un ping manuel pour test
-  (globalThis as any).CS_TEST_PING = () => {
-    s.emit(NS, { type: "__ping__", from: String((game as any).user?.id ?? "") });
-    console.info("[Calderis][DEBUG] ping sent");
-  };
+  s.on(NS, (msg: any) => {});
 
   if (Settings.get("distance.enabled")) enableDistanceFeature();
   readyCurrencyFeature();
-});
-
-Hooks.on("renderActorSheet", (app: any, html: unknown) => {
-  const actor = app?.actor ?? app?.object;
-  log.info("[TRACE] renderActorSheet fired for:", actor?.name ?? "<unknown>");
 });

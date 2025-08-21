@@ -196,19 +196,6 @@ export function wireCurrencyMessaging(): void {
       log.warn("[Calderis][SYS] handler failed", e);
     }
   });
-
-  // Helper debug
-  (globalThis as any).CS_SYS_PING = () => {
-    sock.emit(ch, {
-      _id: uid(),
-      ns: MODULE_ID,
-      op: "__ping__",
-      from: String((game as any).user?.id ?? ""),
-    } as SysMsg);
-    console.info("[Calderis][SYS] ping sent");
-  };
-
-  console.info("[Calderis][SYS] wired", { me: String((game as any).user?.id ?? "?"), ch });
 }
 
 /** ----------- Émission (donneur, côté A) ----------- */

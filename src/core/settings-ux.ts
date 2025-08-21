@@ -41,7 +41,7 @@ function removeCurrencyDefinitionsField(root: HTMLElement): void {
     el2;
 
   row?.remove();
-  if (row) log.info("Settings UX: removed currency.definitions row");
+  // if (row) log.info("Settings UX: removed currency.definitions row");
 }
 
 function insertInlineButtonAfter(
@@ -98,7 +98,6 @@ export function setupInlineFeatureSettings(): void {
       insertInlineButtonAfter(row, feat.key, feat.label);
       injected++;
     }
-    log.info(`[Settings UX] inline buttons injected: ${injected}`);
 
     // Un SEUL listener
     root.addEventListener("click", (ev) => {
@@ -110,10 +109,8 @@ export function setupInlineFeatureSettings(): void {
       if (!key) return;
 
       if (key === "currency") {
-        log.info("[Settings UX] opening CurrencyFeatureForm");
         new (CurrencyFeatureForm as any)({}).render(true);
       } else {
-        log.info(`[Settings UX] opening auto-form for ${key}`);
         const FormCls = makeSettingsForm(key) as any;
         new FormCls().render(true);
       }
