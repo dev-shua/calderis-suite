@@ -2,7 +2,7 @@
 import log from "@/utils/logger";
 import { Settings } from "@/core/settings";
 import { DistanceOverlay } from "./overlay";
-import type { TokenLike, TokenDocumentLike, GridLike } from "@/types/foundry-like";
+import { TokenDocumentLike, TokenLike } from "@/types/foundry-v13-exports";
 
 /* ---------- Helpers géométrie / grille ---------- */
 
@@ -44,7 +44,7 @@ function minSpacesFromTokenToCell(grid: any, tokenA: TokenLike, iB: number, jB: 
 
 type RoundingMode = "nearest" | "floor" | "ceil";
 function roundToStep(value: number, step: number, mode: RoundingMode): number {
-  if (!step || step <= 0) return value;
+  if (!Number.isFinite(step) || step <= 0) return Number(value.toFixed(3));
   const q = value / step;
   const r = mode === "floor" ? Math.floor(q) : mode === "ceil" ? Math.ceil(q) : Math.round(q);
   return Number((r * step).toFixed(3));
@@ -54,9 +54,14 @@ function computeStep(): number {
   const gridDist = Number((canvas?.scene as any)?.grid?.distance ?? 1);
   const src = (Settings.get("distance.stepSource") as "none" | "cell" | "custom") ?? "cell";
   if (src === "none") return 0;
-  if (src === "custom") return Number(Settings.get("distance.customStep") ?? gridDist);
+  if (src === "custom") {
+    const s = Number(Settings.get("distance.customStep"));
+    return Number.isFinite(s) && s > 0 ? s : gridDist;
+  }
+
   const raw = Settings.get("distance.stepFraction");
-  const frac = Number(typeof raw === "string" ? parseFloat(raw) : (raw ?? 1));
+  let frac = typeof raw === "string" ? parseFloat(raw) : Number(raw);
+  if (!Number.isFinite(frac) || frac <= 0) frac = 1;
   return gridDist * frac;
 }
 

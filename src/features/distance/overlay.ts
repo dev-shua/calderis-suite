@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { TokenLike } from "@/types/foundry-like";
+import { TokenLike } from "@/types/foundry-v13-exports";
 import log from "@/utils/logger";
 
 function tokenMetrics(t: TokenLike) {
