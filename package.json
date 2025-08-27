@@ -10,7 +10,11 @@
     "coverage": "vitest run --coverage",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "lint": "eslint . --ext .ts,.js"
+    "lint": "eslint . --ext .ts,.js",
+    "bump:patch": "pnpm version patch",
+    "bump:minor": "pnpm version minor",
+    "bump:major": "pnpm version major",
+    "postversion": "node scripts/sync-version.mjs"
   },
   "keywords": [],
   "author": "",

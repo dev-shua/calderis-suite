@@ -1,0 +1,284 @@
+#calderis-dm-dock-root {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  pointer-events: none;
+}
+
+/* Rail */
+#calderis-dm-dock-rail {
+  position: absolute;
+  left: 0;
+  top: 104px;
+  pointer-events: auto;
+  display: grid;
+  gap: 6px;
+  width: 36px;
+  padding: 4px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+}
+/* Handle de drag (petite barre) */
+.dock-drag {
+  width: 36px;
+  height: 12px;
+  line-height: 12px;
+  border: 0;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ccc;
+  cursor: grab;
+  user-select: none;
+}
+.dock-drag:active {
+  cursor: grabbing;
+}
+
+#calderis-dm-dock-rail .dock-tool {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 6px;
+  background: var(--cs-ui-surface, #222);
+  color: #ddd;
+  cursor: pointer;
+}
+#calderis-dm-dock-rail .dock-tool.is-active {
+  outline: 2px solid var(--cs-ui-focus, #79f);
+}
+
+/* Panneau : caché par défaut + ANIM slide/fade */
+#calderis-dm-dock {
+  position: absolute;
+  left: 48px;
+  top: 104px;
+  pointer-events: auto;
+  width: 380px;
+  overflow: auto;
+  background: rgba(20, 20, 20, 0.98);
+  border-radius: 8px;
+  opacity: 0;
+  transform: translateX(-12px);
+  pointer-events: none;
+  visibility: hidden;
+  transition:
+    transform 0.18s ease,
+    opacity 0.18s ease,
+    visibility 0.18s;
+}
+#calderis-dm-dock.is-open {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+  visibility: visible;
+}
+
+/* Contenu */
+.dock-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  border-bottom: 1px solid #333;
+  padding: 8px 10px;
+}
+.dock-title {
+  margin: 0;
+  font-size: 14px;
+}
+.dock-subtitle {
+  opacity: 0.75;
+  font-size: 12px;
+}
+.dock-body {
+  padding: 10px;
+}
+
+.pj-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+  gap: 8px;
+}
+
+.pj-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border: 0;
+  background: #181818;
+  color: inherit;
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+  text-align: left;
+  width: 80px;
+}
+.pj-card:hover {
+  background: #202020;
+}
+.pj-avatar {
+  border: 1px solid black;
+  border-color: none;
+  border-radius: 6px;
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+.pj-avatar.is-inspired {
+  border-color: goldenrod;
+}
+
+.pj-avatar img {
+  width: 100%;
+  aspect-ratio: 2/3;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.pj-avatar.is-inspired::after {
+  content: "★";
+  position: absolute;
+  bottom: 4px;
+  right: 6px;
+  font-size: 14px;
+  color: goldenrod; /* #f6c744;*/
+  text-shadow: 0 0 2px #000;
+  pointer-events: none;
+}
+
+.pj-name {
+  font-size: 12px !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+.muted {
+  opacity: 0.7;
+}
+
+.cs-dock-body {
+  display: grid;
+  grid-template-columns: 1fr 32px;
+}
+
+.cs-d-options {
+  display: flex;
+  flex-direction: column;
+}
+
+.cs-d-config {
+  cursor: pointer;
+  background: #181818;
+  padding: 8px;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.cs-d-config:hover {
+  background: #202020;
+}
+
+.pc-stat {
+  font-size: 12px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.cs-dock-config-body .cols {
+  display: flex;
+  gap: 1rem;
+}
+
+.cs-dock-config-body .col {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  padding: 0.5rem;
+}
+
+.cs-dock-config-body .list {
+  padding: 0;
+  width: 250px;
+}
+
+.cs-dock-config-body .list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  margin-bottom: 0.25rem;
+}
+
+.cs-dock-config-body .list li .label {
+  flex: 1;
+}
+.cs-dock-config-body .actions button {
+  margin-left: 0.25rem;
+}
+
+.cs-dock-config-body .dialog-buttons {
+  text-align: right;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.cs-dock-config-body .default {
+  background: #f6c744;
+  color: #000;
+  border-radius: 4px;
+  padding: 0.25rem 0.75rem;
+}
+
+.cs-dock-body .pc-hprow {
+  display: block;
+}
+
+.cs-dock-body .pc-hpbar {
+  position: relative;
+  width: 100%; /* ← prend toute la carte (64px) */
+  height: 8px; /* ajuste à ton goût */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+/* texte overlay "x / y" */
+.cs-dock-body .pc-hpbar::after {
+  content: attr(data-label);
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font:
+    600 9px/1 Signika,
+    system-ui;
+  color: #fff;
+  text-shadow: 0 1px 2px #0008;
+  pointer-events: none;
+}
+
+.cs-dock-body .pc-hp {
+  height: 100%;
+  transition: width 0.2s ease;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.25);
+}
+
+/* couleurs par état */
+.cs-dock-body .pc-hpbar.healthy .pc-hp {
+  background: linear-gradient(#2ecc71, #1e8f57);
+}
+.cs-dock-body .pc-hpbar.scratch .pc-hp {
+  background: linear-gradient(#a3e635, #6aa51a);
+}
+.cs-dock-body .pc-hpbar.wounded .pc-hp {
+  background: linear-gradient(#f59e0b, #b45309);
+}
+.cs-dock-body .pc-hpbar.critical .pc-hp {
+  background: linear-gradient(#ef4444, #b91c1c);
+}

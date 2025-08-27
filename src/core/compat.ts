@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { HbAppCtor } from "@/types/appv2-shim";
+
+import { HbAppCtor } from "@/types/foundry-v13-exports";
 
 /** Rendu Handlebars compatible v13+ (fallback v10–v12). */
 export async function renderHbs(path: string, data: unknown): Promise<string> {

@@ -80,7 +80,11 @@ export default defineConfig(({ command }) => {
       },
       minify: isDev ? false : "esbuild",
       target: "es2020",
-      watch: isDev ? {} : null,
+      watch: isDev
+        ? {
+            include: ["src/**", "styles/**"],
+          }
+        : null,
     },
     plugins: [
       viteStaticCopy({

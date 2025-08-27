@@ -69,10 +69,6 @@ function insertInlineButtonAfter(
   wrap.appendChild(fields);
 
   afterRow.insertAdjacentElement("afterend", wrap);
-
-  const sep = document.createElement("hr");
-  sep.className = "cs-inline-feature-sep";
-  wrap.insertAdjacentElement("afterend", sep);
 }
 
 export function setupInlineFeatureSettings(): void {
@@ -82,12 +78,14 @@ export function setupInlineFeatureSettings(): void {
     if ((root as any)._csWiredCS) return;
     (root as any)._csWiredCS = true;
 
+    // Cleanup précédent
     root
       .querySelectorAll(".cs-inline-feature, hr.cs-inline-feature-sep")
       .forEach((n) => n.remove());
     removeCurrencyDefinitionsField(root);
 
     let injected = 0;
+
     for (const feat of FEATURES) {
       const fullName = `${MODULE_ID}.${feat.key}.enabled`;
       const row = findSettingRow(root, fullName);
@@ -95,11 +93,18 @@ export function setupInlineFeatureSettings(): void {
         log.warn(`[Settings UX] enabled row not found for: ${fullName}`);
         continue;
       }
+
+      // Séparateur AU-DESSUS de la feature (avant la row "enabled")
+      const sep = document.createElement("hr");
+      sep.className = "cs-inline-feature-sep";
+      row.insertAdjacentElement("beforebegin", sep);
+
+      // Bloc bouton "Configurer" juste après la row "enabled"
       insertInlineButtonAfter(row, feat.key, feat.label);
       injected++;
     }
 
-    // Un SEUL listener
+    // Un SEUL listener délégué
     root.addEventListener("click", (ev) => {
       const target = ev.target as HTMLElement | null;
       const btn = target?.closest<HTMLButtonElement>(".cs-open-feature-btn");

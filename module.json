@@ -6,7 +6,7 @@
   "authors": [{ "name": "Shua", "discord": "shua_3d" }],
   "compatibility": { "minimum": "13", "verified": "13.347" },
   "esmodules": ["index.js"],
-  "styles": ["styles/module.css", "styles/settings.css", "styles/currency.css"],
+  "styles": ["styles/module.css", "styles/settings.css", "styles/currency.css", "styles/dock.css"],
   "languages": [{ "lang": "fr", "name": "Français", "path": "lang/fr.json" }],
   "packs": [],
   "license": "MIT",

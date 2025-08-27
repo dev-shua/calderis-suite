@@ -1,0 +1,35 @@
+<div class="cs-dock-body">
+  {{#if pcs.length}}
+    <div class="pj-grid">
+      {{#each pcs}}
+        <div>
+          <div class="pj-card" data-action="open-sheet" data-actor-id="{{id}}" title="{{name}}">
+            <div class="pj-name">{{name}}</div>
+            <div class="pj-avatar{{#if inspi}} is-inspired{{/if}}">
+              <img src="{{img}}" alt="{{name}}" />
+              {{#if inspi}}<span class="sr-only">Inspiration</span>{{/if}}
+            </div>
+            {{#if hp}}
+              <div class="pc-hprow">
+                <div class="pc-hpbar {{hp.class}}" data-label="{{hp.actual}} / {{hp.total}}"
+                    role="progressbar" aria-valuemin="0" aria-valuemax="{{hp.total}}" aria-valuenow="{{hp.actual}}">
+                  <div class="pc-hp" style="width:{{hp.percent}}%"></div>
+                </div>
+              </div>
+            {{/if}}
+            {{#each stats as |s|}}
+              <div class="pc-stat"><i class="{{s.icon}}"></i> {{s.value}}</div>
+            {{/each}}
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  {{else}}
+    <p class="muted">Aucun personnage joueur.</p>
+  {{/if}}
+  <div class="cs-d-options">
+    <button class="icon cs-d-config" data-action="open-party-config" title="Config">
+      <i class="fa-solid fa-cog"></i>
+    </button>
+  </div>
+</div>

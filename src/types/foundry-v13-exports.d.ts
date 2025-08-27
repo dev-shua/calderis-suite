@@ -1,4 +1,34 @@
-/** Surface minimale "like Foundry" — étend au besoin. */
+/* 📦 Types Foundry VTT v13 — à importer dans ton code */
+export interface HbAppBase {
+  options: any;
+  id?: string;
+  title?: string;
+  element?: HTMLElement | any;
+
+  render(force?: boolean, options?: any): Promise<void> | void;
+  close(options?: any): Promise<void> | void;
+
+  getData?(): Promise<any> | any;
+  _prepareContext?(): Promise<any> | any;
+  activateListeners?(html: any): void;
+
+  onKeyDown?(ev: KeyboardEvent): void;
+  onDragStart?(ev: DragEvent): void;
+  onDrop?(ev: DragEvent): void;
+  submit?(ev?: Event): Promise<any> | any;
+}
+
+export interface HbAppStatic {
+  DEFAULT_OPTIONS?: any;
+  PARTS?: Record<string, { template: string }>;
+  new (options?: any): HbAppBase;
+}
+
+export type HbAppCtor = HbAppStatic;
+
+/* Const pour extends “à la main” */
+declare const ApplicationV2: HbAppStatic;
+export { ApplicationV2 };
 
 export interface TokenDocumentLike {
   id?: string;

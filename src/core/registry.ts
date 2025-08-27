@@ -1,6 +1,6 @@
 import { currencySettingsDef } from "@/features/currency/settings.schema";
 import { distanceSettingsDef } from "@/features/distance/settings.schema";
-import log from "@/utils/logger";
+import { coreSettingsDef } from "./dm-dock/settings.schema";
 
 export type SettingsDef = Record<
   string,
@@ -46,6 +46,7 @@ export const FEATURES: FeatureMeta[] = [
 ] as const;
 
 export const SETTINGS_DEF = {
+  ...coreSettingsDef,
   ...distanceSettingsDef,
   ...currencySettingsDef,
 } as const;

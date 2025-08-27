@@ -1,0 +1,40 @@
+export const coreSettingsDef = {
+  "dmDock.enabled": {
+    name: "CS.DMDock.Setting.Enabled.Label",
+    hint: "CS.DMDock.Setting.Enabled.Hint",
+    scope: "client",
+    config: true,
+    type: Boolean,
+    default: true,
+  },
+  "dmDock.open": {
+    name: "CS.DMDock.Settings.Open.Label",
+    hint: "CS.DMDock.Settings.Open.Hint",
+    scope: "client",
+    config: false,
+    type: Boolean,
+    default: false,
+  },
+  "dmDock.positionY": {
+    name: "positionY",
+    scope: "client",
+    config: false,
+    type: Number,
+  },
+  "dmDock.tool": {
+    name: "CS.DMDock.Settings.Tool.Label",
+    hint: "CS.DMDock.Settings.Tool.Hint",
+    scope: "client",
+    config: false,
+    type: String,
+    default: "party",
+  },
+  "dmDock.party.fields": {
+    name: "CS.DMDock.Settings.Party.Fields.Label",
+    hint: "CS.DMDock.Settings.Party.Fields.Hint",
+    scope: "client",
+    config: false,
+    type: Object,
+    default: ["prc"],
+  },
+};
