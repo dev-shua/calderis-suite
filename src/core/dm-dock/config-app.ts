@@ -114,7 +114,6 @@ export function wireDockPartyConfigClicks(): void {
     const action = el.dataset.action;
 
     if (action === "save") {
-      log.info("[Click] Save config");
       const keys = app.querySelectorAll(".list.chosen [data-key]") as NodeListOf<HTMLLIElement>;
       const order: FieldKey[] = Array.from(keys, (li) => li.dataset.key as FieldKey);
       await Settings.set("dmDock.party.fields", order);

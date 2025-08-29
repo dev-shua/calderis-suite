@@ -6,14 +6,19 @@ import log from "@/utils/logger";
 
 export class DockController {
   private isOpen = false;
-  private currentTool = "party";
   private isAnimating = false;
   private rerenderTimer: number | null = null;
+  private currentTool: string | null = null;
 
   async init(): Promise<void> {
     // État initial (par défaut fermé)
-    this.isOpen = !!Settings.get?.("dmDock.open");
-    this.currentTool = Settings.get?.("dmDock.tool") ?? "party";
+    try {
+      this.isOpen = !!Settings.get?.("dmDock.open");
+      this.currentTool = (Settings.get("dmDock.tool") as string) ?? "party";
+    } catch {
+      this.isOpen = false;
+      this.currentTool = "party";
+    }
 
     await renderDock(this.currentTool);
     setDockOpen(this.isOpen);
@@ -36,9 +41,9 @@ export class DockController {
           el.setAttribute("aria-pressed", active ? "true" : "false");
         });
         await renderDock(this.currentTool);
-        await this.open(); // ouvre au clic d’un outil
+        await this.open();
       } else {
-        this.toggle(); // même outil => toggle
+        this.toggle();
       }
     });
 
@@ -176,6 +181,7 @@ export class DockController {
     setDockOpen(true);
     this.isOpen = true;
     await Settings.set?.("dmDock.open", true);
+    await renderDock(this.currentTool);
     this.isAnimating = false;
   }
 

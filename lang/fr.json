@@ -155,5 +155,28 @@
   "CS.Sheetstats.speed": "Vitesse",
   "CS.Sheetstats.health": "Hit Points",
   "CS.Sheetstats.inspiration": "Inspiration",
-  "CS.Sheetstats.initiative": "Initiative"
+  "CS.Sheetstats.initiative": "Initiative",
+
+  "CS.DMDock.Tokens": "Tokens",
+
+  "CS.TokenView.Preset.Darkvision18": "Dark Vision 18",
+  "CS.TokenView.Preset.Blindness": "Blindness",
+  "CS.TokenView.Preset.Torch6_12": "Torch 6-12",
+
+  "CS.Filter.PC": "PJ",
+  "CS.Filter.NPC": "PNJ",
+  "CS.Filter.Hostile": "Hostiles",
+  "CS.Filter.OnlyPC": "PJ uniquement",
+  "CS.Filter.SelectAllByFilters": "Recomposer par filtres",
+
+  "CS.Hostile": "Hostile",
+  "CS.Remove": "Retirer",
+  "CS.NoSelection": "Aucune sélection",
+  "CS.Toggle": "Basculer",
+  "CS.NoPresets": "Aucun preset chargé",
+
+  "CS.Vision": "Vision",
+  "CS.Light": "Lumière",
+  "CS.ResetSight": "Reset vue",
+  "CS.ResetLight": "Reset lumière"
 }
