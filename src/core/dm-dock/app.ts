@@ -15,6 +15,16 @@ function baselineTop(): number {
   return Math.round(r.bottom + 8);
 }
 
+export const setRailActiveTool = (tool: string): void => {
+  const rail = document.getElementById(RAIL_ID);
+  if (!rail) return;
+  rail.querySelectorAll<HTMLButtonElement>(".dock-tool").forEach((btn) => {
+    const is = btn.dataset.tool === tool;
+    btn.classList.toggle("is-active", is);
+    btn.setAttribute("aria-pressed", is ? "true" : "false");
+  });
+};
+
 /** Crée root + rail si absents. Rien d’autre. */
 export function initDock(): void {
   if (!Settings.get?.("dmDock.enabled")) return;
@@ -37,12 +47,21 @@ export function initDock(): void {
     const top = Settings.get?.("dmDock.positionY") ?? baselineTop();
     rail.style.top = `${top}px`;
     rail.setAttribute("aria-label", t("CS.DMDock.Rail"));
+
+    const savedTool = (Settings.get?.("dmDock.tool") as string) ?? "party";
+    const btn = (tool: string, icon: string, titleKey: string) => {
+      const active = tool === savedTool;
+      const cls = `dock-tool${active ? " is-active" : ""}`;
+      const pressed = active ? "true" : "false";
+      const title = t(titleKey);
+      return `<button class="${cls}" data-tool="${tool}" aria-pressed="${pressed}" title="${title}"><i class="${icon}"></i></button>`;
+    };
     // Icônes par défaut (tu ajusteras)
     rail.innerHTML = `
       <button class="dock-drag" aria-label="${t("CS.DMDock.Rail")}" title="${t("CS.DMDock.Rail")}">⋮</button>
-      <button class="dock-tool is-active" data-tool="party" aria-pressed="true" title="${t("CS.DMDock.Tool.Party")}"><i class="fas fa-users"></i></button>
-      <button class="dock-tool" data-tool="tokens" aria-pressed="false" title="${t("CS.DMDock.Tool.Tokens")}"><i class="fas fa-chess-pawn"></i></button>
-      <button class="dock-tool" data-tool="tools" aria-pressed="false" title="${t("CS.DMDock.Tool.Tools")}"><i class="fas fa-tools"></i></button>
+      ${btn("party", "fas fa-users", "CS.DMDock.Tool.Party")}
+      ${btn("tokens", "fas fa-chess-pawn", "CS.DMDock.Tool.Tokens")}
+      ${btn("tools", "fas fa-tools", "CS.DMDock.Tool.Tools")}
     `;
     root.appendChild(rail);
   }

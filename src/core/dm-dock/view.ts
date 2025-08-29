@@ -1,120 +1,113 @@
 import { MODULE_ID } from "@/utils/constants";
 import { PANEL_ID } from "./app";
-import { setDockTop } from "./layout";
 import log from "@/utils/logger";
-import { openDockPartyConfig } from "./config-app";
-import { PARTY_FIELDS, validateKeys } from "./catalog";
+import { partyPanel } from "./panels/party.panel";
+import { tokensPanel } from "./panels/tokens.panel";
 import { Settings } from "../settings";
-import { calculPercentage, libStatToIcon } from "@/utils/functions";
-import { t } from "../i18n";
 
+let WIRED_SHELL = false;
+let currentTool: string | null = null;
 export const LAYOUT = `modules/${MODULE_ID}/templates/core/dock.hbs`;
-export const TOOL_TEMPLATES: Record<string, string> = {
-  party: `modules/${MODULE_ID}/templates/core/party.hbs`,
-  tokens: `modules/${MODULE_ID}/templates/core/tokens.hbs`,
-  tools: `modules/${MODULE_ID}/templates/core/tools.hbs`,
+export interface DockPanel {
+  id: string;
+  template: string;
+  getContext(): Promise<object>;
+  bind(root: HTMLElement): void;
+}
+const PANELS: Record<string, DockPanel> = {
+  party: partyPanel,
+  tokens: tokensPanel,
 };
 
-const getHPColorByPercent = (prc: number): string => {
-  if (prc <= 25) return "critical";
-  if (prc <= 50) return "wounded";
-  if (prc <= 75) return "scratch";
-  return "healthy";
+const ensureCurrentTool = (): string => {
+  if (currentTool) return currentTool;
+  try {
+    currentTool = (Settings.get("dmDock.tool") as string) ?? "party";
+  } catch {
+    currentTool = "party";
+  }
+  return currentTool;
+};
+
+export const getCurrentTool = () => ensureCurrentTool();
+
+export function wireDockShellHandlers() {
+  if (WIRED_SHELL) return;
+  WIRED_SHELL = true;
+
+  document.addEventListener("click", async (ev) => {
+    const root = document.getElementById(PANEL_ID);
+    const target = ev.target as HTMLElement | null;
+    if (!root || !target || !target.closest(`#${PANEL_ID}`)) return;
+
+    const el = target.closest<HTMLElement>("[data-action]");
+    if (!el) return;
+
+    const action = el.dataset.action;
+
+    if (action === "switch-tool") {
+      const newTool = el.dataset.tool;
+      if (!newTool || newTool === ensureCurrentTool()) return;
+      currentTool = newTool;
+      try {
+        await Settings.set("dmDock.tool", currentTool);
+      } catch {}
+      await renderDock(currentTool);
+      updateActiveToolUI(currentTool);
+    }
+  });
+}
+
+export const updateActiveToolUI = (tool: string) => {
+  const panel = document.getElementById(PANEL_ID);
+  if (!panel) return;
+  panel.setAttribute("data-tool", tool);
+
+  const btns = panel.querySelectorAll<HTMLElement>('[data-action="switch-tool"]');
+  btns.forEach((b) => {
+    const is = b.dataset.tool === tool;
+    b.classList.toggle("is-active", is);
+    b.setAttribute("aria-pressed", is ? "true" : "false");
+  });
+};
+
+export const getPanelTemplates = (): string[] => {
+  return Object.values(PANELS).map((p) => p.template);
 };
 
 async function hb() {
   return (foundry as any).applications.handlebars;
 }
 
-const getFormatedParams = (actor: DnD5e.Actor5e) => {
-  const selected = validateKeys(Settings.get("dmDock.party.fields") as string[] | undefined);
-  const selectedStats = PARTY_FIELDS.filter((field) => selected.includes(field.key));
-  let result: any = {};
+export async function renderDock(tool: string | null): Promise<void> {
+  wireDockShellHandlers();
+  const effectiveTool = tool ?? ensureCurrentTool();
+  currentTool = effectiveTool;
 
-  selectedStats.forEach((s) => {
-    const stat = s.read(actor);
-    const key = s.key;
-    if (key === "hp") {
-      const pv = (stat as string).split("/");
-      const pct = calculPercentage(Number(pv[0]), Number(pv[1]));
-      const pvToDisplay = {
-        actual: pv[0],
-        total: pv[1],
-        percent: pct,
-        class: getHPColorByPercent(pct),
-      };
-      result.hp = pvToDisplay;
-    } else if (key === "inspi" && stat === "true") {
-      result.inspi = stat as string;
-    }
-  });
+  const panelElement = document.getElementById(PANEL_ID);
+  if (!panelElement) return;
 
-  const fileteredStats = selectedStats
-    .filter((stat) => stat.key !== "hp" && stat.key !== "inspi")
-    .map((stat) => ({
-      key: stat.key,
-      label: t(stat.label),
-      icon: libStatToIcon(stat.key),
-      value: stat.read(actor),
-    }));
-  result.stats = fileteredStats;
-  log.info(result);
-  return result;
-};
-
-export async function renderDock(tool: string): Promise<void> {
-  const panel = document.getElementById(PANEL_ID);
-  if (!panel) return;
   const api = await hb();
+  const panel = PANELS[effectiveTool] ?? PANELS["party"];
 
-  // Compile le sous-template de l’outil (ou fallback)
-  const path = TOOL_TEMPLATES[tool] ?? TOOL_TEMPLATES["party"];
-  const sub = await api.getTemplate(path);
+  const sub = await api.getTemplate(panel.template);
   (Handlebars as any).registerPartial("content", sub);
 
-  const pcs = ((game as any)?.actors?.contents ?? [])
-    .filter((a: DnD5e.Actor5e) => a?.type === "character" && a?.hasPlayerOwner)
-    .map((a: DnD5e.Actor5e) => {
-      const formatedParams = getFormatedParams(a);
-      return {
-        id: a.id ?? "",
-        name: a.name ?? "—",
-        img: a.img ?? a?.prototypeToken?.texture?.src ?? "",
-        // passivePerception: a.system.skills.per.passive,
-        ...formatedParams,
-      };
-    });
+  const panelCtx = await panel.getContext();
 
   const html = await api.renderTemplate(LAYOUT, {
-    tool,
-    pcs,
+    tool: effectiveTool,
+    panel: panelCtx,
     title: game?.i18n?.localize?.("CS.DMDock.Title") ?? "Dock MJ",
   });
-  panel.innerHTML = html;
+  panelElement.innerHTML = html;
+  updateActiveToolUI(effectiveTool);
 
-  // Interactions propres à certains sous-templates (ex: party -> ouvrir fiche PJ)
-  panel.addEventListener(
-    "click",
-    (ev) => {
-      const element = (ev.target as HTMLElement).closest<HTMLElement>("[data-action]");
-      // if (!btn) return;
-      if (!element) return;
-
-      const action = element.dataset.action;
-
-      if (action === "open-sheet") {
-        const btn = (ev.target as HTMLElement)?.closest<HTMLButtonElement>(".pj-card");
-        if (!btn) return;
-        (game as any)?.actors?.get?.(btn.dataset.actorId)?.sheet?.render?.(true);
-      }
-
-      if (action === "open-party-config") {
-        openDockPartyConfig();
-        return;
-      }
-    }
-    // { once: true }
-  );
+  try {
+    panel.bind(panelElement);
+  } catch (e) {
+    log.warn("Panel bind failed", e);
+  }
 }
 
 export function setDockOpen(open: boolean): void {

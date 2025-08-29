@@ -5,8 +5,9 @@ import { readyCurrencyFeature } from "./features/currency";
 import { setupInlineFeatureSettings } from "./core/settings-ux";
 import { initDock } from "./core/dm-dock/app";
 import { dockController } from "./core/dm-dock/controller";
-import { LAYOUT, TOOL_TEMPLATES } from "./core/dm-dock/view";
+import { getPanelTemplates, LAYOUT, renderDock } from "./core/dm-dock/view";
 import { wireDockPartyConfigClicks } from "./core/dm-dock/config-app";
+import { registerTokenView } from "./features/token-view";
 
 if (!(Handlebars as any).helpers?.eq) {
   Handlebars.registerHelper("eq", (a: unknown, b: unknown) => a === b);
@@ -35,7 +36,7 @@ Hooks.once("init", async () => {
   setupInlineFeatureSettings();
 
   const api = (foundry as any).applications.handlebars;
-  await api.loadTemplates([LAYOUT, ...Object.values(TOOL_TEMPLATES)]);
+  await api.loadTemplates([LAYOUT, ...getPanelTemplates()]);
 });
 
 Hooks.once("ready", async () => {
@@ -55,7 +56,9 @@ Hooks.once("ready", async () => {
     initDock();
     await dockController.init();
     wireDockPartyConfigClicks();
+    // await renderDock(null);
   }
   if (Settings.get("distance.enabled")) enableDistanceFeature();
+  registerTokenView();
   readyCurrencyFeature();
 });

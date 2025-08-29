@@ -1,1 +1,115 @@
-<p>Contrôles rapides de pions (à venir).</p>
+<section class="cs-panel cs-panel--tokens" data-panel="tokens">
+  <header class="cs-panel__header">
+    <h3 class="cs-title">
+      {{localize "CS.DMDock.Tokens"}}
+      —
+      <span data-el="sel-count">{{count}}</span>
+    </h3>
+
+    <div class="cs-filters">
+      <button
+        class="cs-filter"
+        data-action="toggle-filter"
+        data-filter="pc"
+        aria-pressed="{{filters.pc}}"
+      >
+        {{localize "CS.Filter.PC"}}
+      </button>
+      <button
+        class="cs-filter"
+        data-action="toggle-filter"
+        data-filter="npc"
+        aria-pressed="{{filters.npc}}"
+      >
+        {{localize "CS.Filter.NPC"}}
+      </button>
+      <button
+        class="cs-filter"
+        data-action="toggle-filter"
+        data-filter="hostile"
+        aria-pressed="{{filters.hostile}}"
+      >
+        {{localize "CS.Filter.Hostile"}}
+      </button>
+
+      <div class="cs-filter-actions">
+        <button data-action="select-only-pc">{{localize "CS.Filter.OnlyPC"}}</button>
+        <button data-action="select-all-by-filters">{{localize
+            "CS.Filter.SelectAllByFilters"
+          }}</button>
+      </div>
+    </div>
+  </header>
+
+  {{#if count}}
+    <div class="cs-card-grid" data-el="sel-cards">
+      {{#each selection}}
+        <div class="cs-card" data-token-id="{{id}}">
+          <img class="cs-card__img" alt="" src="{{img}}" />
+          <div class="cs-card__body">
+            <div class="cs-card__title">{{name}}</div>
+            <div class="cs-card__tags">
+              {{#if isPC}}PC{{else}}PNJ{{/if}}
+              {{#if isHostile}} · {{localize "CS.Hostile"}}{{/if}}
+            </div>
+          </div>
+          <button
+            class="cs-card__x"
+            data-action="exclude-token"
+            data-token-id="{{id}}"
+            title="{{localize 'CS.Remove'}}"
+          >✕</button>
+        </div>
+      {{/each}}
+    </div>
+  {{else}}
+    <p class="cs-empty">{{localize "CS.NoSelection"}}</p>
+    <div class="cs-card-grid" data-el="sel-cards"></div>
+  {{/if}}
+
+  <section class="cs-section">
+    <h4>
+      {{localize "CS.Vision"}}
+      <button class="cs-link" data-action="toggle-section" data-target="vision">{{localize
+          "CS.Toggle"
+        }}</button>
+    </h4>
+
+    {{#if visionPresets.length}}
+      <div class="cs-preset-grid" data-el="vision-grid">
+        {{#each visionPresets}}
+          <button class="cs-preset" data-action="apply" data-preset="{{id}}">{{label}}</button>
+        {{/each}}
+      </div>
+    {{else}}
+      <p class="cs-empty">{{localize "CS.NoPresets"}}</p>
+    {{/if}}
+
+    <div class="cs-actions">
+      <button data-action="reset" data-slot="sight">{{localize "CS.ResetSight"}}</button>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <h4>
+      {{localize "CS.Light"}}
+      <button class="cs-link" data-action="toggle-section" data-target="light">{{localize
+          "CS.Toggle"
+        }}</button>
+    </h4>
+
+    {{#if lightPresets.length}}
+      <div class="cs-preset-grid" data-el="light-grid">
+        {{#each lightPresets}}
+          <button class="cs-preset" data-action="apply" data-preset="{{id}}">{{label}}</button>
+        {{/each}}
+      </div>
+    {{else}}
+      <p class="cs-empty">{{localize "CS.NoPresets"}}</p>
+    {{/if}}
+
+    <div class="cs-actions">
+      <button data-action="reset" data-slot="light">{{localize "CS.ResetLight"}}</button>
+    </div>
+  </section>
+</section>
